@@ -175,7 +175,6 @@ export const usePostStore = defineStore("postStore", () => {
         break;
       }
       case "edit": {
-        console.log("edit", state.editCommentId, state.postComment);
         updatedComments = state.singlePost?.comments.map((comment) => {
           if (comment.createdAt === state.editCommentId) {
             comment.commentTitle = state.postComment;
@@ -196,6 +195,13 @@ export const usePostStore = defineStore("postStore", () => {
     await updateDoc(postRef, {
       comments: updatedComments,
     });
+    state.postList = state.postList.map((post) => {
+      if(post.id === state.selectedCommentPostId) {
+        post.comments = updatedComments
+      }
+      console.log(post)
+      return post
+    })
     await getSinglePost(state.selectedCommentPostId);
   };
   return {

@@ -36,7 +36,7 @@
         />
         <div class="description">
           <div
-            v-html="post.description"
+            v-html="post?.description"
             :class="[
               'p-4 3xl:p-8 overflow-hidden max-h-[8.5rem]',
               { 'max-h-none': isExpanded[index] },
@@ -62,6 +62,7 @@
             class="flex gap-2 3xl:gap-4 items-center cursor-pointer"
           >
             <Icon icon="uil:comment" class="w-6 h-6" />
+            <p>{{ post?.comments.length }} comment{{ post?.comments?.length === 1 ? '' : 's' }}</p>
           </div>
         </div>
         <div v-if="post?.taggedUsers.length !== 0" class="px-4 3xl:px-8">

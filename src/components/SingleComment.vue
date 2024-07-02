@@ -14,7 +14,7 @@
       </div>
     </div>
     <p>{{ comment?.commentTitle }}</p>
-    <div class="flex gap-2 absolute top-2 right-4">
+    <div class="flex gap-2 absolute top-4 right-4">
       <Icon
         v-if="commentedUser?.id === userDetails?.id"
         icon="material-symbols:edit"
