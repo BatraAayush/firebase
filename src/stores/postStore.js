@@ -33,8 +33,8 @@ export const usePostStore = defineStore("postStore", () => {
     postComment: "",
     singlePost: {},
     loadingPost: false,
-    selectedCommentPostId:null,
-    inputFieldType:'add'
+    selectedCommentPostId: null,
+    editCommentId: null,
   });
   const createPost = async (postDetails) => {
     try {
@@ -175,14 +175,18 @@ export const usePostStore = defineStore("postStore", () => {
         break;
       }
       case "edit": {
-        console.log("edit", commentIndex, state.postComment);
-        updatedComments = [...state.singlePost?.comments];
+        console.log("edit", state.editCommentId, state.postComment);
+        updatedComments = state.singlePost?.comments.map((comment) => {
+          if (comment.createdAt === state.editCommentId) {
+            comment.commentTitle = state.postComment;
+            comment.updatedAt = Date.now();
+          }
+          return comment
+        });
         break;
       }
       case "delete": {
-        updatedComments = state.singlePost?.comments.filter((comment) => {
-          return comment.createdAt !== commentIndex
-        })
+        updatedComments = state.singlePost?.comments.filter((comment) => comment.createdAt !== commentIndex);
         break;
       }
       default: {

@@ -3,12 +3,12 @@
     class="fixed inset-0 w-full h-full bg-[rgba(0,0,0,0.6)] flex justify-center items-center cursor-pointer overflow-hidden"
     @click.self="$emit('manageCommentBoxVisibility')"
   >
-    <div class="bg-white py-4 rounded-lg shadow-lg cursor-default w-[40%]">
+    <div class="bg-white py-4 rounded-lg shadow-lg cursor-default w-[95%] md:w-[50%] lg:w-[40%] xl:w-[40%]">
       <h3 class="text-center font-bold text-xl mb-4 text-darkBlue">Comments</h3>
-      <div v-if="loadingPost" class="h-[10rem]">
+      <div v-if="loadingPost" class="h-[15rem]">
         <spinning-loader :large="true" />
       </div>
-      <div v-else class="h-[10rem] overflow-y-auto">
+      <div v-else class="h-[15rem] overflow-y-auto">
         <div
           v-if="singlePost?.comments.length === 0"
           class="text-center text-gray-500"
@@ -29,7 +29,8 @@
           placeholder="Add a Comment"
           v-model="postComment"
           @input="$emit('validate')"
-        /><button @click="() =>inputFieldType === 'add' ? $emit('addComment') : () => console.log(comment.createdAt, editComment)">
+        />{{ console.log() }}
+        <button @click="$emit('addComment') ">
           <Icon icon="pepicons-pop:send" class="w-6 h-6 text-darkBlue" />
         </button>
       </div>
@@ -45,11 +46,9 @@ import { storeToRefs } from "pinia";
 import { defineEmits, defineProps } from "vue";
 import SpinningLoader from "./SpinningLoader.vue";
 import SingleComment from "./SingleComment.vue";
-import { usePostList } from "@/composables/postList";
 
 defineProps(["addCommentErrorMessage"]);
 defineEmits(["manageCommentBoxVisibility", "addComment", "validate"]);
 
-const { postComment, singlePost, loadingPost, inputFieldType } = storeToRefs(usePostStore());
-const {editComment} = usePostList()
+const { postComment, singlePost, loadingPost } = storeToRefs(usePostStore());
 </script>

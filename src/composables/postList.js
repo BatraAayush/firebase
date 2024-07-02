@@ -6,7 +6,7 @@ import { computed, ref } from "vue";
 
 export const usePostList = () => {
   const { getAllPosts, manageComments, getSinglePost } = usePostStore();
-  const { loadingPosts, postComment, selectedCommentPostId, inputFieldType } = storeToRefs(
+  const { loadingPosts, postComment, selectedCommentPostId, editCommentId } = storeToRefs(
     usePostStore()
   );
   const isExpanded = ref([]);
@@ -19,7 +19,7 @@ export const usePostList = () => {
   const manageCommentBoxVisibility = async (id) => {
     isCommentBoxVisible.value = !isCommentBoxVisible.value;
     if (id) {
-      inputFieldType.value = 'add'
+      editCommentId.value = null
       await getSinglePost(id);
     }
     selectedCommentPostId.value = id;
@@ -38,7 +38,11 @@ export const usePostList = () => {
     validateComment.value = true;
     validate();
     if (!addCommentErrorMessage.value) {
-      await manageComments('add');
+      if(editCommentId.value){
+        await manageComments('edit')
+      } else {
+        await manageComments('add');
+      }
       postComment.value = "";
       addCommentErrorMessage.value = "";
       validateComment.value = false;
@@ -49,17 +53,10 @@ export const usePostList = () => {
     await manageComments('delete', index)
   }
 
-  const setContentInField = async (title) => {
-    inputFieldType.value = 'edit'
+  const setContentInField = async (title, createdAt) => {
     postComment.value = title
-    inputFieldType.value = 'edit'
+    editCommentId.value = createdAt
 
-  }
-
-  const editComment = async (index) => {
-    console.log('in composable ',index)
-    await manageComments('edit', index)
-    inputFieldType.value = 'add'
   }
 
   const buttonText = computed(() => {
@@ -111,6 +108,5 @@ export const usePostList = () => {
     contentRef,
     deleteComment,
     setContentInField,
-    editComment
   };
 };

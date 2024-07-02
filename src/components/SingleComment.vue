@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-4 bg-lightGray p-4 relative">
+  <div class="border-b-2 border-gray-400 bg-lightGray p-4 md:px-6 relative">
     <div class="flex gap-2 items-center mb-2">
       <img
         :src="commentedUser?.profilePhoto"
@@ -14,12 +14,12 @@
       </div>
     </div>
     <p>{{ comment?.commentTitle }}</p>
-    <div class="flex gap-2 absolute top-2 right-2">
+    <div class="flex gap-2 absolute top-2 right-4">
       <Icon
         v-if="commentedUser?.id === userDetails?.id"
         icon="material-symbols:edit"
         class="w-5 h-5 text-green-700 cursor-pointer"
-        @click="setContentInField(comment?.commentTitle)"
+        @click="setContentInField(comment?.commentTitle, comment?.createdAt)"
       />
       <Icon
         v-if="
