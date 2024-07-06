@@ -65,7 +65,7 @@
       </div>
 
       <div class="w-[100%]">
-        <label class="text-[gray]">Profile Photo</label>
+        <label class="text-[gray]">Password</label>
         <div class="flex items-center relative mt-1">
           <input
             class="rounded-lg py-2 px-3 bg-lightBg w-[100%]"
@@ -91,7 +91,7 @@
         <p class="text-[red] mt-2">{{ signupErrorMessage.password }}</p>
       </div>
       <div class="w-[100%] ">
-        <label class="text-[gray]">Profile Photo</label>
+        <label class="text-[gray]">Confirm Password</label>
         <div class="flex items-center relative mt-1">
           <input
             class="rounded-lg py-2 px-3 bg-lightBg w-[100%]"
