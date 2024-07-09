@@ -32,7 +32,7 @@
         </div>
         <img
           :src="post?.postImageUrl"
-          class="w-full object-cover max-h-[15rem] 3xl:max-h-[30rem]"
+          class="w-full object-cover max-h-[25rem] 3xl:max-h-[30rem]"
         />
         <div class="description">
           <div
@@ -140,6 +140,7 @@ onMounted(async () => {
   lastVisible.value = null;
   await getAllPosts();
   postList.value = usePostStore().postList;
+  console.log(postList.value)
   isExpanded.value = new Array(postList.value.length).fill(false);
   showButton.value = new Array(postList.value.length).fill(false);
 

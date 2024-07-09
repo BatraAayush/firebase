@@ -9,7 +9,7 @@
       :class="[isClosable ? 'cursor-default' : null]"
     >
       <h1
-        class="text-xl font-bold"
+        class="text-xl font-bold capitalize"
         :class="[isClosable ? 'text-[red]' : 'text-[green]']"
       >
         {{ title }}
