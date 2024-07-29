@@ -140,7 +140,6 @@ onMounted(async () => {
   lastVisible.value = null;
   await getAllPosts();
   postList.value = usePostStore().postList;
-  console.log(postList.value)
   isExpanded.value = new Array(postList.value.length).fill(false);
   showButton.value = new Array(postList.value.length).fill(false);
 
@@ -149,6 +148,7 @@ onMounted(async () => {
       showButton.value[index] = true;
     }
   });
+  console.log('In Home View',postList.value)
 });
 </script>
 

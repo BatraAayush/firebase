@@ -30,7 +30,7 @@
           v-model="postComment"
           @input="$emit('validate')"
           @keyup.enter="$emit('addComment')"
-        />{{ console.log() }}
+        />
         <button @click="$emit('addComment')">
           <Icon icon="pepicons-pop:send" class="w-6 h-6 text-darkBlue" />
         </button>

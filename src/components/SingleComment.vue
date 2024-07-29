@@ -16,14 +16,14 @@
     <p>{{ comment?.commentTitle }}</p>
     <div class="flex gap-2 absolute top-4 right-4">
       <Icon
-        v-if="commentedUser?.id === userDetails?.id"
+        v-if="comment?.userId === userDetails?.uid"
         icon="material-symbols:edit"
         class="w-5 h-5 text-green-700 cursor-pointer"
         @click="setContentInField(comment?.commentTitle, comment?.createdAt)"
       />
       <Icon
         v-if="
-          commentedUser?.id === userDetails?.id ||
+          comment?.userId === userDetails?.uid ||
           singlePost?.userDetails?.uid === userDetails?.uid
         "
         icon="material-symbols:delete"

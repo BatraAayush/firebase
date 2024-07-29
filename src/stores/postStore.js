@@ -135,6 +135,7 @@ export const usePostStore = defineStore("postStore", () => {
       console.error(e);
     } finally {
       state.loadingPosts = false;
+      console.log('In Store',state.postList)
     }
   };
 
@@ -199,7 +200,6 @@ export const usePostStore = defineStore("postStore", () => {
       if(post.id === state.selectedCommentPostId) {
         post.comments = updatedComments
       }
-      console.log(post)
       return post
     })
     await getSinglePost(state.selectedCommentPostId);
