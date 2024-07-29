@@ -75,9 +75,9 @@ import { useShowPassword } from "@/composables/showPassword";
 import { useLoginStore } from "@/stores/loginStore";
 import FormButton from "@/components/FormButton.vue";
 import {
-  FACEBOOK_PROVIDER_TYPE,
+  // FACEBOOK_PROVIDER_TYPE,
   GOOGLE_PROVIDER_TYPE,
-  TWITTER_PROVIDER_TYPE,
+  // TWITTER_PROVIDER_TYPE,
 } from "@/contants";
 const { loginData, loginErrorMessage, loginUser, validate } = useLogin();
 
@@ -91,15 +91,15 @@ const socialAuths = [
     iconName: "devicon:google",
     providerType: GOOGLE_PROVIDER_TYPE,
   },
-  {
-    buttonText: "Facebook Signup",
-    iconName: "devicon:facebook",
-    providerType: FACEBOOK_PROVIDER_TYPE,
-  },
-  {
-    buttonText: "Twitter Signup",
-    iconName: "devicon:twitter",
-    providerType: TWITTER_PROVIDER_TYPE,
-  },
+  // {
+  //   buttonText: "Facebook Signup",
+  //   iconName: "devicon:facebook",
+  //   providerType: FACEBOOK_PROVIDER_TYPE,
+  // },
+  // {
+  //   buttonText: "Twitter Signup",
+  //   iconName: "devicon:twitter",
+  //   providerType: TWITTER_PROVIDER_TYPE,
+  // },
 ];
 </script>

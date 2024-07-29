@@ -32,7 +32,7 @@
         </div>
         <img
           :src="post?.postImageUrl"
-          class="w-full object-cover max-h-[15rem] 3xl:max-h-[30rem]"
+          class="w-full object-cover max-h-[25rem] 3xl:max-h-[30rem]"
         />
         <div class="description">
           <div

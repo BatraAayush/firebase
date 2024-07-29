@@ -199,7 +199,6 @@ export const usePostStore = defineStore("postStore", () => {
       if(post.id === state.selectedCommentPostId) {
         post.comments = updatedComments
       }
-      console.log(post)
       return post
     })
     await getSinglePost(state.selectedCommentPostId);

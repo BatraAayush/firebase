@@ -1,11 +1,11 @@
 <template>
   <button
-    class="border-2 border-darkBlue py-3 rounded-lg w-[100%] 3xl:text-2xl h-10 3xl:h-[4rem] flex justify-center items-center"
+    class="border-2 border-darkBlue py-3 rounded-lg w-[100%] 3xl:text-2xl h-10 3xl:h-[4rem] flex justify-center items-center bg-darkBlue "
     :class="[
       iconName ? 'capitalize' : 'uppercase',
       loading
         ? 'cursor-not-allowed hover:bg-darkBlue'
-        : 'text-white hover:text-darkBlue bg-darkBlue hover:bg-transparent',
+        : 'text-white hover:text-darkBlue hover:bg-transparent',
     ]"
     @click.prevent="$emit('onSubmit')"
     :disabled="loading"
