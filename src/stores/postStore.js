@@ -135,7 +135,6 @@ export const usePostStore = defineStore("postStore", () => {
       console.error(e);
     } finally {
       state.loadingPosts = false;
-      console.log('In Store',state.postList)
     }
   };
 

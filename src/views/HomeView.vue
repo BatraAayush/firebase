@@ -148,7 +148,6 @@ onMounted(async () => {
       showButton.value[index] = true;
     }
   });
-  console.log('In Home View',postList.value)
 });
 </script>
 
