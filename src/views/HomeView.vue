@@ -7,7 +7,7 @@
       <div
         v-for="(post, index) in postList"
         :key="post?.createdAt"
-        class="mt-8 bg-white shadow-lg py-4 rounded-lg"
+        class="mt-8 bg-white shadow-lg py-4 sm:rounded-lg"
       >
         <div class="m-4 3xl:m-8 flex gap-4 3xl:gap-8 items-center">
           <img
@@ -56,13 +56,26 @@
             {{ buttonText[index] }}
           </button>
         </div>
-        <div class="ml-4 mb-4">
+        <div class="ml-4 mb-4 flex gap-4">
+          <div class="flex items-center gap-1 cursor-pointer" @click="manageLikes(post?.id)">
+            <Icon
+              v-if="post?.likes.includes(userDetails?.uid)"
+              class="w-6 h-6 text-red-500"
+              icon="mdi:heart"
+            /><Icon
+              v-else
+              class="w-6 h-6 text-red-500"
+              icon="mdi:heart-outline"
+            /><span>{{post?.likes.length}}</span>
+          </div>
           <div
             @click="manageCommentBoxVisibility(post?.id)"
-            class="flex gap-2 3xl:gap-4 items-center cursor-pointer"
+            class="flex gap-1 3xl:gap-2 items-center cursor-pointer"
           >
             <Icon icon="uil:comment" class="w-6 h-6" />
-            <p>{{ post?.comments.length }} comment{{ post?.comments?.length === 1 ? '' : 's' }}</p>
+            <p>
+              {{ post?.comments.length }}
+            </p>
           </div>
         </div>
         <div v-if="post?.taggedUsers.length !== 0" class="px-4 3xl:px-8">
@@ -111,14 +124,19 @@
 <script setup>
 import { Icon } from "@iconify/vue";
 import { storeToRefs } from "pinia";
+import { onMounted } from "vue";
+
 import SpinningLoader from "@/components/SpinningLoader.vue";
 import { usePostList } from "@/composables/postList";
 import { usePostStore } from "@/stores/postStore";
 import CommentBox from "@/components/CommentBox.vue";
-import { onMounted } from "vue";
+import { useUserStore } from "@/stores/userStore";
 
 const { postList, loadingPosts, lastVisible } = storeToRefs(usePostStore());
-const { getAllPosts } = usePostStore();
+const { getAllPosts, manageLikes } = usePostStore();
+
+const { getCurrentUser, getUserByUID } = useUserStore();
+const { userDetails } = storeToRefs(useUserStore());
 
 const {
   getUploadTime,
@@ -132,7 +150,7 @@ const {
   addComment,
   addCommentErrorMessage,
   validate,
-  contentRef,
+  contentRef
 } = usePostList();
 
 onMounted(async () => {
@@ -148,7 +166,10 @@ onMounted(async () => {
       showButton.value[index] = true;
     }
   });
+  const user = await getCurrentUser();
+  await getUserByUID(user?.uid, 'currentUser');
 });
+
 </script>
 
 <style>
