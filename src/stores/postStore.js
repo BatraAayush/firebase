@@ -69,9 +69,10 @@ export const usePostStore = defineStore("postStore", () => {
         descriptonImagesId: state.descriptonImagesId,
         taggedUsers: state.taggedUsers,
         comments: [],
+        likes: [],
         createdAt,
         updatedAt,
-        createdBy: userDetails.value.uid,
+        createdBy: userDetails?.value.uid,
         userDetails: {
           firstName: userDetails.value.firstName,
           lastName: userDetails.value.lastName,
@@ -180,12 +181,14 @@ export const usePostStore = defineStore("postStore", () => {
             comment.commentTitle = state.postComment;
             comment.updatedAt = Date.now();
           }
-          return comment
+          return comment;
         });
         break;
       }
       case "delete": {
-        updatedComments = state.singlePost?.comments.filter((comment) => comment.createdAt !== commentIndex);
+        updatedComments = state.singlePost?.comments.filter(
+          (comment) => comment.createdAt !== commentIndex
+        );
         break;
       }
       default: {
@@ -196,12 +199,38 @@ export const usePostStore = defineStore("postStore", () => {
       comments: updatedComments,
     });
     state.postList = state.postList.map((post) => {
-      if(post.id === state.selectedCommentPostId) {
-        post.comments = updatedComments
+      if (post.id === state.selectedCommentPostId) {
+        post.comments = updatedComments;
       }
-      return post
-    })
+      return post;
+    });
     await getSinglePost(state.selectedCommentPostId);
+  };
+
+  const manageLikes = async (postId) => {
+    const { userDetails } = storeToRefs(useUserStore());
+
+    const postRef = doc(db, "posts", postId);
+    let updatedLikes = [];
+    const selectedPost = state.postList.find((post) => post.id === postId);
+    const isPostLiked = selectedPost?.likes.includes(userDetails.value.uid);
+    if (!isPostLiked) {
+      updatedLikes = [...selectedPost?.likes, userDetails.value.uid];
+    } else {
+      updatedLikes = selectedPost?.likes.filter(
+        (uid) => uid !== userDetails.value.uid
+      );
+    }
+    await updateDoc(postRef, {
+      likes: updatedLikes,
+    });
+    const updatedPosts = state.postList.map((post) => {
+      if (post.id === postId) {
+        post.likes = updatedLikes;
+      }
+      return post;
+    });
+    state.postList = updatedPosts;
   };
   return {
     ...toRefs(state),
@@ -211,5 +240,6 @@ export const usePostStore = defineStore("postStore", () => {
     getAllPosts,
     manageComments,
     getSinglePost,
+    manageLikes,
   };
 });
